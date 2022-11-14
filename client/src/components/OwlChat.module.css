@@ -1,0 +1,38 @@
+.wrapper {
+  margin: 10px;
+  height: 620px;
+  background: white;
+}
+
+.form {
+  margin: 10px;
+}
+
+.chat-label {
+  position: relative;
+}
+
+.chat-input,
+.join-button {
+  height: 45px;
+}
+
+.chat-input {
+  padding: 0 15px;
+  border: none;
+  background: white;
+  width: 100%;
+}
+
+.chat-input::placeholder {
+  color: #dcdde1;
+}
+
+.chat-button {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  border: none;
+  background: white;
+  color: black;
+}
