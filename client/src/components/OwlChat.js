@@ -1,18 +1,20 @@
 import React from 'react';
-import styles from './OwlChat.module.css';
+import styled from 'styled-components';
+import OwlChatInput from './OwlChatInput';
 
 const OwlChat = () => {
   return (
     <>
-      <div className={styles.wrapper}></div>
-      <form className={styles.form}>
-        <label className={styles['chat-label']}>
-          <input className={styles['chat-input']} />
-          <button className={styles['chat-button']}>SEND</button>
-        </label>
-      </form>
+      <ChatBlock></ChatBlock>
+      <OwlChatInput />
     </>
   );
 };
 
 export default OwlChat;
+
+const ChatBlock = styled.div`
+  margin: 10px;
+  height: 620px;
+  background: white;
+`;
