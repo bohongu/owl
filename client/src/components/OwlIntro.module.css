@@ -1,0 +1,18 @@
+.wrapper {
+  margin: 110px 20px 80px 20px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.intro-title {
+  font-family: 'SDSamliphopangche_Outline';
+}
+
+p {
+  font-size: 18px;
+  text-align: center;
+  font-family: 'Ansungtangmyun-Bold';
+}

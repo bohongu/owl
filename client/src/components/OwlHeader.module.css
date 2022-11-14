@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 12px;
+  background: white;
+}
+
+.date,
+.empty {
+  font-size: 14px;
+}
+
+.title-img {
+  height: 36px;
+  width: 36px;
+}
+
+.empty {
+  visibility: hidden;
+}

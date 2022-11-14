@@ -1,0 +1,22 @@
+.wrapper {
+  height: 768px;
+  width: 512px;
+  position: relative;
+
+  margin: 0 auto;
+  margin-top: 96px;
+  margin-bottom: 32px;
+}
+
+.wrapper::after {
+  height: 768px;
+  width: 512px;
+  content: '';
+  background-image: url('../assets/background.jpg');
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0.4;
+}
