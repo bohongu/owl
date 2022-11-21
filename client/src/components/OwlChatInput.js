@@ -9,7 +9,7 @@ const OwlChatInput = () => {
 
   const sendMessageHandler = (event) => {
     event.preventDefault();
-    console.log(message);
+
     setMessage('');
   };
   return (

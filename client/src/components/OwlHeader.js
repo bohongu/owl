@@ -1,15 +1,19 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import owl from '../assets/owl.png';
+import { themeActions } from '../store/theme';
 
 const OwlHeader = () => {
-  const today = new Date().toISOString().slice(0, 10);
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+  const dispatch = useDispatch();
+  const toggleDarkModeHandler = () => {
+    dispatch(themeActions.toggleDarkMode());
+  };
 
   return (
     <HeaderBlock>
-      <h1>{today}</h1>
       <img src={owl} alt="owl" />
-      <h1>{today}</h1>
     </HeaderBlock>
   );
 };
@@ -22,12 +26,7 @@ const HeaderBlock = styled.div`
   justify-content: space-between;
   padding: 12px 12px;
   background: white;
-  h1 {
-    font-size: 14px;
-  }
-  h1:last-child {
-    visibility: hidden;
-  }
+
   img {
     height: 36px;
     width: 36px;

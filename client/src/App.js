@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { darkTheme, lightTheme } from './theme';
 import GlobalFonts from './fonts/fonts';
 
-const socket = io.connect('http://localhost:3000');
+const socket = io.connect('http://localhost:3001');
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -26,6 +26,8 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
 }`;
 
+socket.emit('init', '연결이 되었는가');
+
 const App = () => {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
 
@@ -37,7 +39,7 @@ const App = () => {
         <OwlHeader />
         {/* <OwlIntro />
         <OwlJoin /> */}
-        <OwlChat />
+        <OwlChat /> *
       </OwlTemplate>
     </ThemeProvider>
   );

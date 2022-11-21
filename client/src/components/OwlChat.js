@@ -16,5 +16,5 @@ export default OwlChat;
 const ChatBlock = styled.div`
   margin: 10px;
   height: 620px;
-  background: white;
+  background: ${(props) => props.theme.bgColor};
 `;
