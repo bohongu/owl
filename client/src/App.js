@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import OwlChat from './components/OwlChat';
 import OwlHeader from './components/OwlHeader';
 import OwlIntro from './components/OwlIntro';

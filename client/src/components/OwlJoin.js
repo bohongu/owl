@@ -1,21 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { io } from 'socket.io-client';
 import styled from 'styled-components';
 import { startActions } from '../store/start';
 
+const socket = io.connect('http://localhost:3001');
+
 const OwlJoin = () => {
+  const [nickname, setNickname] = useState('');
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
-  const handleChatStart = () => {
-    dispatch(startActions.setStart());
+
+  const onNicknameChange = (event) => {
+    setNickname(event.target.value);
   };
+
+  const handleStartChat = () => {
+    socket.emit('nickname_check', { name: nickname }, () => {
+      setNickname('');
+      dispatch(startActions.setStart());
+    });
+  };
+
+  socket.on('nickname_null', (data) => {
+    setError(data);
+  });
+
+  socket.on('nickname_same', (data) => {
+    setError(data);
+  });
 
   return (
     <JoinBlock>
       <label>
-        <input type="text" placeholder="Enter Nickname" />
-        <button onClick={handleChatStart}>START</button>
+        <input
+          type="text"
+          placeholder="Enter Nickname"
+          value={nickname}
+          onChange={onNicknameChange}
+        />
+        <button onClick={handleStartChat}>START</button>
       </label>
-      <div>이미 사용 중인 닉네임 입니다</div>
+      <div>{error}</div>
     </JoinBlock>
   );
 };
@@ -29,6 +55,7 @@ const JoinBlock = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   label {
     position: relative;
   }

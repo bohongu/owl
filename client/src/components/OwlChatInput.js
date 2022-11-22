@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
+import { io } from 'socket.io-client';
 import styled from 'styled-components';
+
+const socket = io.connect('http://localhost:3001');
 
 const OwlChatInput = () => {
   const [message, setMessage] = useState('');
+
   const messageChangeHandler = (event) => {
     setMessage(event.target.value);
   };
 
-  const sendMessageHandler = (event) => {
-    event.preventDefault();
-
-    setMessage('');
+  const sendMessageHandler = () => {
+    socket.emit('send_message', message);
   };
+
   return (
     <ChatInputBlock>
       <label>
