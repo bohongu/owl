@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
 import styled from 'styled-components';
+import { adminActions } from '../store/admin';
 import { startActions } from '../store/start';
 
 const socket = io.connect('http://localhost:3001');
@@ -20,7 +21,13 @@ const OwlJoin = () => {
       setNickname('');
       dispatch(startActions.setStart());
     });
+
+    socket.emit('find_room_click', { name: nickname });
   };
+
+  socket.on('find_room_complete', (data) => {
+    dispatch(adminActions.setMessage(data));
+  });
 
   socket.on('nickname_null', (data) => {
     setError(data);

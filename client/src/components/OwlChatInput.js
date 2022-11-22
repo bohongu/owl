@@ -11,9 +11,7 @@ const OwlChatInput = () => {
     setMessage(event.target.value);
   };
 
-  const sendMessageHandler = () => {
-    socket.emit('send_message', message);
-  };
+  const sendMessageHandler = () => {};
 
   return (
     <ChatInputBlock>

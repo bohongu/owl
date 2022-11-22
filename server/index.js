@@ -50,7 +50,16 @@ io.on('connection', (socket) => {
     done();
   });
 
-  socket.on('send_message', (data) => {
-    socket.broadcast.emit('receive_message', data);
+  socket.on('find_room_click', (data) => {
+    for (let i = 0; i < clients.length; i++) {
+      if (clients[i].name === data.name) {
+        clients[i].status = finding;
+        console.log(clients[i].status, clients[i].name);
+        socket.emit('find_room_complete', '대화상대를 찾고 있습니다...');
+        return;
+      }
+    }
   });
+
+  socket.on('finding_room');
 });
