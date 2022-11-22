@@ -1,12 +1,19 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { startActions } from '../store/start';
 
 const OwlJoin = () => {
+  const dispatch = useDispatch();
+  const handleChatStart = () => {
+    dispatch(startActions.setStart());
+  };
+
   return (
     <JoinBlock>
       <label>
         <input type="text" placeholder="Enter Nickname" />
-        <button>START</button>
+        <button onClick={handleChatStart}>START</button>
       </label>
       <div>이미 사용 중인 닉네임 입니다</div>
     </JoinBlock>

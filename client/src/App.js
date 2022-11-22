@@ -12,6 +12,29 @@ import GlobalFonts from './fonts/fonts';
 
 const socket = io.connect('http://localhost:3001');
 
+const App = () => {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+  const start = useSelector((state) => state.start.start);
+
+  return (
+    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+      <GlobalStyle />
+      <GlobalFonts />
+      <OwlTemplate>
+        <OwlHeader />
+        {start ? (
+          <OwlChat />
+        ) : (
+          <>
+            <OwlIntro />
+            <OwlJoin />
+          </>
+        )}
+      </OwlTemplate>
+    </ThemeProvider>
+  );
+};
+
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
@@ -25,24 +48,5 @@ const GlobalStyle = createGlobalStyle`
   button {
     cursor: pointer;
 }`;
-
-socket.emit('init', '연결이 되었는가');
-
-const App = () => {
-  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
-
-  return (
-    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-      <GlobalStyle />
-      <GlobalFonts />
-      <OwlTemplate>
-        <OwlHeader />
-        {/* <OwlIntro />
-        <OwlJoin /> */}
-        <OwlChat /> *
-      </OwlTemplate>
-    </ThemeProvider>
-  );
-};
 
 export default App;
