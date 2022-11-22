@@ -61,5 +61,34 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('finding_room');
+  socket.on('finding_room', (data) => {
+    for (let i = 0; i < clients.length; i++) {
+      if (clients[i].status === finding) {
+        if (clients[i].name === data.name) {
+          continue;
+        } else {
+          let roomName = new Date().getTime() + '';
+          clients[i].status = chating;
+          clients[i].roomName = roomName;
+          clients[i].client.join(roomName);
+          console.log(clients[i].status);
+          for (let i = 0; i < clients.length; i++) {
+            if (clients[i].name === data.name) {
+              clients[i].status = chating;
+              clients[i].roomName = roomName;
+              clients[i].client.join(roomName);
+              io.sockets
+                .to(roomName)
+                .emit(
+                  'finding_room_complete',
+                  roomName,
+                  '대화방에 입장했습니다.',
+                );
+              return;
+            }
+          }
+        }
+      }
+    }
+  });
 });
