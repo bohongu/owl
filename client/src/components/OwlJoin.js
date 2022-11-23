@@ -65,11 +65,11 @@ const JoinBlock = styled.div`
     padding: 0 15px;
     border: none;
     background: none;
-    border: 1px solid ${(props) => props.theme.textColor};
-    color: ${(props) => props.theme.textColor};
+    border: 1px solid black;
+    color: black;
     margin-bottom: 10px;
     ::placeholder {
-      color: ${(props) => props.theme.textColor};
+      color: black;
     }
   }
 
@@ -80,7 +80,7 @@ const JoinBlock = styled.div`
     right: 5px;
     border: none;
     background: none;
-    color: ${(props) => props.theme.textColor};
+    color: black;
   }
   div {
     color: red;

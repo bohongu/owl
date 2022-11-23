@@ -37,6 +37,7 @@ io.on('connection', (socket) => {
 
     users.push({ nickname: data.nickname });
     socket.nickname = data.nickname;
+    console.log(users);
     done();
   });
 });

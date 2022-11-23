@@ -39,10 +39,10 @@ const ChatInputBlock = styled.form`
     height: 45px;
     padding: 0 15px;
     border: none;
-    background: ${(props) => props.theme.bgColor};
+    background: white;
     width: 100%;
     ::placeholder {
-      color: ${(props) => props.theme.textColor};
+      color: black;
     }
   }
   button {
@@ -51,7 +51,7 @@ const ChatInputBlock = styled.form`
     bottom: 5;
     right: 5px;
     border: none;
-    background: ${(props) => props.theme.bgColor};
-    color: ${(props) => props.theme.textColor};
+    background: white;
+    color: black;
   }
 `;
