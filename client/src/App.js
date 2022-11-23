@@ -9,6 +9,7 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { darkTheme, lightTheme } from './theme';
 import GlobalFonts from './fonts/fonts';
+import OwlRooms from './components/OwlRooms';
 
 const socket = io.connect('http://localhost:3001');
 
@@ -23,13 +24,14 @@ const App = () => {
       <OwlTemplate>
         <OwlHeader />
         {start ? (
-          <OwlChat />
+          <OwlRooms />
         ) : (
           <>
             <OwlIntro />
             <OwlJoin />
           </>
         )}
+        {/* <OwlChat /> */}
       </OwlTemplate>
     </ThemeProvider>
   );

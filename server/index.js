@@ -19,76 +19,24 @@ const io = new Server(server, {
   },
 });
 
-const finding = 1;
-const notFinding = 2;
-const chating = 3;
-
-let clients = [];
+let users = [];
 
 io.on('connection', (socket) => {
-  socket.on('nickname_check', (data, done) => {
-    if (!data.name) {
+  socket.on('nickname', (data, done) => {
+    if (!data.nickname) {
       socket.emit('nickname_null', '닉네임을 입력해주세요');
       return;
     }
 
-    for (let i = 0; i < clients.length; i++) {
-      if (clients[i].name === data.name) {
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].nickname === data.nickname) {
         socket.emit('nickname_same', '동일한 닉네임이 존재합니다.');
         return;
       }
     }
 
-    clients.push({
-      name: data.name,
-      client: socket,
-      roomName: '',
-      status: notFinding,
-    });
-
-    socket.name = data.name;
+    users.push({ nickname: data.nickname });
+    socket.nickname = data.nickname;
     done();
-  });
-
-  socket.on('find_room_click', (data) => {
-    for (let i = 0; i < clients.length; i++) {
-      if (clients[i].name === data.name) {
-        clients[i].status = finding;
-        console.log(clients[i].status, clients[i].name);
-        socket.emit('find_room_complete', '대화상대를 찾고 있습니다...');
-        return;
-      }
-    }
-  });
-
-  socket.on('finding_room', (data) => {
-    for (let i = 0; i < clients.length; i++) {
-      if (clients[i].status === finding) {
-        if (clients[i].name === data.name) {
-          continue;
-        } else {
-          let roomName = new Date().getTime() + '';
-          clients[i].status = chating;
-          clients[i].roomName = roomName;
-          clients[i].client.join(roomName);
-          console.log(clients[i].status);
-          for (let i = 0; i < clients.length; i++) {
-            if (clients[i].name === data.name) {
-              clients[i].status = chating;
-              clients[i].roomName = roomName;
-              clients[i].client.join(roomName);
-              io.sockets
-                .to(roomName)
-                .emit(
-                  'finding_room_complete',
-                  roomName,
-                  '대화방에 입장했습니다.',
-                );
-              return;
-            }
-          }
-        }
-      }
-    }
   });
 });
