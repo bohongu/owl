@@ -20,6 +20,7 @@ const io = new Server(server, {
 });
 
 let users = [];
+let roomList = [];
 
 io.on('connection', (socket) => {
   socket.on('nickname', (data, done) => {
@@ -39,5 +40,9 @@ io.on('connection', (socket) => {
     socket.nickname = data.nickname;
     console.log(users);
     done();
+  });
+
+  socket.on('create_room', (roomName) => {
+    socket.join(roomName);
   });
 });
