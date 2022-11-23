@@ -8,8 +8,8 @@ import { startActions } from '../store/start';
 const OwlHeader = () => {
   const start = useSelector((state) => state.start.start);
   const dispatch = useDispatch();
-  const handleChatFinish = () => {
-    dispatch(startActions.setFinish());
+  const handleGoJoin = () => {
+    dispatch(startActions.goJoin());
   };
 
   return (
@@ -17,10 +17,7 @@ const OwlHeader = () => {
       {start ? (
         <>
           <div>
-            <ImArrowLeft
-              onClick={handleChatFinish}
-              style={{ cursor: 'pointer' }}
-            />
+            <ImArrowLeft onClick={handleGoJoin} style={{ cursor: 'pointer' }} />
           </div>
           <img src={owl} alt="owl" />
           <div></div>

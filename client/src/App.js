@@ -13,7 +13,7 @@ import OwlRooms from './components/OwlRooms';
 const socket = io.connect('http://localhost:3001');
 
 const App = () => {
-  const start = useSelector((state) => state.start.start);
+  const { join, room, chat } = useSelector((state) => state.start);
 
   return (
     <>
@@ -21,15 +21,14 @@ const App = () => {
       <GlobalFonts />
       <OwlTemplate>
         <OwlHeader />
-        {start ? (
-          <OwlRooms />
-        ) : (
+        {join && (
           <>
             <OwlIntro />
             <OwlJoin />
           </>
         )}
-        {/* <OwlChat /> */}
+        {room && <OwlRooms />}
+        {chat && <OwlChat />}
       </OwlTemplate>
     </>
   );

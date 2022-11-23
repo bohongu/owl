@@ -8,12 +8,11 @@ const socket = io.connect('http://localhost:3001');
 
 const OwlChat = () => {
   const [conversation, setConversation] = useState([]);
-  const adminMessage = useSelector((state) => state.admin.adminMessage);
 
   return (
     <>
       <ChatBlock>
-        <div>{adminMessage}</div>
+        <div></div>
       </ChatBlock>
       <OwlChatInput />
     </>

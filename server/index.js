@@ -44,5 +44,6 @@ io.on('connection', (socket) => {
 
   socket.on('create_room', (roomName) => {
     socket.join(roomName);
+    1;
   });
 });

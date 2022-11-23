@@ -15,10 +15,10 @@ const OwlJoin = () => {
     setNickname(event.target.value);
   };
 
-  const handleStartChat = () => {
+  const handleGoRooms = () => {
     socket.emit('nickname', { nickname }, () => {
       setNickname('');
-      dispatch(startActions.setStart());
+      dispatch(startActions.goRoom());
     });
   };
 
@@ -39,7 +39,7 @@ const OwlJoin = () => {
           value={nickname}
           onChange={onNicknameChange}
         />
-        <button onClick={handleStartChat}>START</button>
+        <button onClick={handleGoRooms}>START</button>
       </label>
       <div>{error}</div>
     </JoinBlock>
