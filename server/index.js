@@ -44,6 +44,9 @@ io.on('connection', (socket) => {
 
   socket.on('create_room', (roomName) => {
     socket.join(roomName);
-    1;
+    roomList.push({ roomName });
+    socket.roomName = roomName;
+    console.log(roomList);
+    socket.emit('title', roomName);
   });
 });

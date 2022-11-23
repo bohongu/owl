@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import styled from 'styled-components';
 import OwlChatInput from './OwlChatInput';
+import { useSelector } from 'react-redux';
 
 const socket = io.connect('http://localhost:3001');
 
 const OwlChat = () => {
+  const roomTitle = useSelector((state) => state.admin.roomTitle);
   const [conversation, setConversation] = useState([]);
 
   return (
     <>
-      <ChatBlock>
-        <div></div>
-      </ChatBlock>
+      <RoomName>{roomTitle}</RoomName>
+      <ChatBlock></ChatBlock>
       <OwlChatInput />
     </>
   );
@@ -21,8 +21,17 @@ const OwlChat = () => {
 
 export default OwlChat;
 
-const ChatBlock = styled.div`
+const RoomName = styled.div`
   margin: 10px;
-  height: 620px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 30px;
+`;
+
+const ChatBlock = styled.div`
+  margin: 0 10px;
+  height: 580px;
   background: white;
 `;

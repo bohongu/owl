@@ -7,6 +7,7 @@ import { IoCreateOutline } from 'react-icons/io5';
 import { ImArrowLeft } from 'react-icons/im';
 import { io } from 'socket.io-client';
 import { startActions } from '../store/start';
+import { adminActions } from '../store/admin';
 
 const socket = io.connect('http://localhost:3001');
 
@@ -31,6 +32,9 @@ const OwlRooms = () => {
     socket.emit('create_room', roomName);
     setRoomName('');
     dispatch(startActions.goChat());
+    socket.on('title', (roomName) =>
+      dispatch(adminActions.setRoomTitle(roomName)),
+    );
   };
 
   return (
