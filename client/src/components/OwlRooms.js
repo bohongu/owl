@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Modal from './ui/Modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,12 +8,14 @@ import { ImArrowLeft } from 'react-icons/im';
 import { io } from 'socket.io-client';
 import { startActions } from '../store/start';
 import { adminActions } from '../store/admin';
+import OwlRoom from './OwlRoom';
 
 const socket = io.connect('http://localhost:3001');
 
 const OwlRooms = () => {
   const [roomName, setRoomName] = useState('');
   const showModal = useSelector((state) => state.modal.showModal);
+  const roomList = useSelector((state) => state.admin.roomList);
   const dispatch = useDispatch();
 
   const handleModalShow = () => {
@@ -36,6 +38,18 @@ const OwlRooms = () => {
       dispatch(adminActions.setRoomTitle(roomName)),
     );
   };
+
+  useEffect(() => {
+    socket.on('room_list', (rooms) => {
+      dispatch(adminActions.clearRoomList());
+      if (rooms.length === 0) {
+        return;
+      }
+      for (let i = 0; i < rooms.length; i++) {
+        dispatch(adminActions.setRoomList(rooms[i]));
+      }
+    });
+  }, [dispatch]);
 
   return (
     <RoomsBlock>
@@ -64,7 +78,11 @@ const OwlRooms = () => {
           </Modal>
         ) : null}
       </CreateRoom>
-      <RoomList>ff</RoomList>
+      <RoomList>
+        {roomList.map((item) => (
+          <OwlRoom>{item}</OwlRoom>
+        ))}
+      </RoomList>
     </RoomsBlock>
   );
 };
@@ -98,8 +116,12 @@ const Create = styled.button`
 `;
 
 const RoomList = styled.div`
-  border: 1px solid blue;
-  height: 650px;
+  height: 600px;
+  width: 412px;
+  display: grid;
+  grid-template-rows: repeat(8, 1fr);
+  gap: 5px;
+  border: 1px solid black;
 `;
 
 const ModalHeader = styled.div`

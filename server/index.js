@@ -19,8 +19,18 @@ const io = new Server(server, {
   },
 });
 
-let users = [];
-let roomList = [];
+const users = [];
+const roomList = () => {
+  const sids = io.sockets.adapter.sids;
+  const rooms = io.sockets.adapter.rooms;
+  const roomList = [];
+  rooms.forEach((_, key) => {
+    if (sids.get(key) === undefined) {
+      roomList.push(key);
+    }
+  });
+  return roomList;
+};
 
 io.on('connection', (socket) => {
   socket.on('nickname', (data, done) => {
@@ -44,9 +54,11 @@ io.on('connection', (socket) => {
 
   socket.on('create_room', (roomName) => {
     socket.join(roomName);
-    roomList.push({ roomName });
-    socket.roomName = roomName;
-    console.log(roomList);
-    socket.emit('title', roomName);
+    io.sockets.emit('room_list', roomList());
+    console.log(roomList());
+  });
+
+  socket.on('disconnect', () => {
+    io.sockets.emit('room_list', roomList());
   });
 });
