@@ -1,5 +1,5 @@
 import express from 'express';
-import http, { ClientRequest } from 'http';
+import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 const app = express();
@@ -20,7 +20,8 @@ const io = new Server(server, {
 });
 
 const users = [];
-const roomList = () => {
+const roomCheck = [];
+const roomListFn = () => {
   const sids = io.sockets.adapter.sids;
   const rooms = io.sockets.adapter.rooms;
   const roomList = [];
@@ -52,13 +53,27 @@ io.on('connection', (socket) => {
     done();
   });
 
-  socket.on('create_room', (roomName) => {
+  socket.on('create_room', (roomName, done) => {
+    if (!roomName) {
+      socket.emit('roomName_null', '채팅방명을 입력해주세요');
+      return;
+    }
+
+    for (let i = 0; i < roomCheck.length; i++) {
+      if (roomCheck[i] === roomName) {
+        console.log(roomCheck[i]);
+        socket.emit('roomName_same', '동일한 채팅방명이 존재합니다.');
+        return;
+      }
+    }
+
+    roomCheck.push(roomName);
     socket.join(roomName);
-    io.sockets.emit('room_list', roomList());
-    console.log(roomList());
+    done();
+    io.sockets.emit('room_list', roomListFn());
   });
 
   socket.on('disconnect', () => {
-    io.sockets.emit('room_list', roomList());
+    io.sockets.emit('room_list', roomListFn());
   });
 });

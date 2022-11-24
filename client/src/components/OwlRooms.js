@@ -14,6 +14,7 @@ const socket = io.connect('http://localhost:3001');
 
 const OwlRooms = () => {
   const [roomName, setRoomName] = useState('');
+  const [error, setError] = useState('');
   const showModal = useSelector((state) => state.modal.showModal);
   const roomList = useSelector((state) => state.admin.roomList);
   const dispatch = useDispatch();
@@ -31,13 +32,20 @@ const OwlRooms = () => {
   };
 
   const handleCreateRoom = () => {
-    socket.emit('create_room', roomName);
-    setRoomName('');
-    dispatch(startActions.goChat());
-    socket.on('title', (roomName) =>
-      dispatch(adminActions.setRoomTitle(roomName)),
-    );
+    socket.emit('create_room', roomName, () => {
+      setRoomName('');
+      dispatch(startActions.goChat());
+      dispatch(adminActions.setRoomTitle(roomName));
+    });
   };
+
+  socket.on('roomName_null', (data) => {
+    setError(data);
+  });
+
+  socket.on('roomName_same', (data) => {
+    setError(data);
+  });
 
   useEffect(() => {
     socket.on('room_list', (rooms) => {
@@ -75,10 +83,12 @@ const OwlRooms = () => {
               />
               <button onClick={handleCreateRoom}>CREATE</button>
             </Label>
+            <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>
           </Modal>
         ) : null}
       </CreateRoom>
       <RoomList>
+        {roomList.length === 0 && <NoRoom>Create a chat room</NoRoom>}
         {roomList.map((item) => (
           <OwlRoom>{item}</OwlRoom>
         ))}
@@ -121,7 +131,6 @@ const RoomList = styled.div`
   display: grid;
   grid-template-rows: repeat(8, 1fr);
   gap: 5px;
-  border: 1px solid black;
 `;
 
 const ModalHeader = styled.div`
@@ -158,4 +167,10 @@ const Label = styled.label`
     border: none;
     background: none;
   }
+`;
+
+const NoRoom = styled.div`
+  text-align: center;
+  color: red;
+  font-size: 22px;
 `;
