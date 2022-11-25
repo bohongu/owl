@@ -51,6 +51,7 @@ io.on('connection', (socket) => {
     socket.nickname = data.nickname;
     console.log(users);
     done();
+    io.sockets.emit('room_list', roomListFn());
   });
 
   socket.on('create_room', (roomName, done) => {
