@@ -26,10 +26,12 @@ const IntroBlock = styled.div`
   color: white;
   h1 {
     font-family: 'BMJUA';
+    color: #e7fee6;
   }
   p {
     font-size: 18px;
     text-align: center;
     font-family: 'Ansungtangmyun';
+    color: #fce7d8;
   }
 `;

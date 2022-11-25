@@ -14,6 +14,7 @@ const OwlRoom = ({ children, roomName }) => {
     socket.emit('enter_room', roomName, () => {
       dispatch(startActions.goChat());
       dispatch(adminActions.setRoomTitle(roomName));
+      console.log(roomName);
     });
   };
 
@@ -23,12 +24,16 @@ const OwlRoom = ({ children, roomName }) => {
 export default OwlRoom;
 
 const RoomCard = styled.div`
-  border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  background: white;
+  font-size: 24px;
+  background-image: linear-gradient(135deg, #e7fee6 0%, #fce7d8 100%);
+  font-family: 'Humanbumsuk';
+  color: black;
   cursor: pointer;
+  :hover {
+    border: 1.5px solid #87af3e;
+  }
 `;

@@ -70,6 +70,7 @@ io.on('connection', (socket) => {
     }
 
     roomCheck.push(roomName);
+    console.log(`Create Room : ${roomName}`);
     socket.join(roomName);
     done();
     io.sockets.emit('room_list', roomListFn());
@@ -81,13 +82,16 @@ io.on('connection', (socket) => {
 
   /* ENTER ROOM */
   socket.on('enter_room', (roomName, done) => {
+    console.log(`Enter Room : ${roomName}`);
     socket.join(roomName);
     done();
   });
 
   /* MESSAGE */
   socket.on('send_message', (message, roomName, done) => {
-    socket.to(roomName).emit('receive_message', socket.nickname, message);
+    console.log(`Message : ${message}`);
+    console.log(`Room name: ${roomName}`);
+    socket.to(roomName).emit('receive_message', message);
     done();
   });
 });

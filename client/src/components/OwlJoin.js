@@ -65,11 +65,17 @@ const JoinBlock = styled.div`
     padding: 0 15px;
     border: none;
     background: none;
-    border: 1px solid black;
-    color: black;
+    border: 1px solid #fce7d8;
+    color: white;
     margin-bottom: 10px;
+    :focus {
+      ::placeholder {
+        color: #fce7d8;
+      }
+    }
+
     ::placeholder {
-      color: black;
+      color: white;
     }
   }
 
@@ -80,7 +86,10 @@ const JoinBlock = styled.div`
     right: 5px;
     border: none;
     background: none;
-    color: black;
+    color: white;
+    :hover {
+      color: #fce7d8;
+    }
   }
   div {
     color: red;

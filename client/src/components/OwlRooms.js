@@ -25,6 +25,8 @@ const OwlRooms = () => {
 
   const handleModalHide = () => {
     dispatch(modalActions.setHideModal());
+    setRoomName('');
+    setError('');
   };
 
   const handleRoomNameChange = (event) => {
@@ -36,6 +38,7 @@ const OwlRooms = () => {
       setRoomName('');
       dispatch(startActions.goChat());
       dispatch(adminActions.setRoomTitle(roomName));
+      console.log(roomName);
     });
   };
 
@@ -123,7 +126,7 @@ const Create = styled.button`
   font-size: 25px;
   color: white;
   :hover {
-    color: greenyellow;
+    color: #e7fee6;
   }
 `;
 
@@ -146,10 +149,14 @@ const ExitArrow = styled.div`
   display: flex;
   align-items: center;
   width: 50px;
+  :hover {
+    color: #ff0a00;
+  }
 `;
 
 const HeaderTitle = styled.div`
   border-bottom: 1px solid black;
+  font-weight: bold;
 `;
 
 const Label = styled.label`
@@ -160,6 +167,12 @@ const Label = styled.label`
     padding: 0 15px;
     border: 1px solid black;
     background: none;
+    :focus {
+      ::placeholder {
+        color: black;
+        font-weight: bold;
+      }
+    }
   }
   button {
     height: 30px;
@@ -168,6 +181,10 @@ const Label = styled.label`
     right: 5px;
     border: none;
     background: none;
+    :hover {
+      color: black;
+      font-weight: bold;
+    }
   }
 `;
 
