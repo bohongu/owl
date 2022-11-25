@@ -1,19 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { io } from 'socket.io-client';
 import styled from 'styled-components';
 import OwlChatInput from './OwlChatInput';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { chatActions } from '../store/chat';
 
 const socket = io.connect('http://localhost:3001');
 
 const OwlChat = () => {
   const roomTitle = useSelector((state) => state.admin.roomTitle);
-  const [conversation, setConversation] = useState([]);
+  const chat = useSelector((state) => state.chat.chat);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    socket.on('receive_message', (nickname, msg) => {
+      dispatch(chatActions.setChat(msg));
+    });
+  }, [dispatch]);
 
   return (
     <>
       <RoomName>{roomTitle}</RoomName>
-      <ChatBlock></ChatBlock>
+      <ChatBlock>
+        {chat.map((chat) => (
+          <div>{chat}</div>
+        ))}
+      </ChatBlock>
       <OwlChatInput />
     </>
   );

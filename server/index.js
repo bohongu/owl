@@ -34,6 +34,7 @@ const roomListFn = () => {
 };
 
 io.on('connection', (socket) => {
+  /* CREATE NICKNAME */
   socket.on('nickname', (data, done) => {
     if (!data.nickname) {
       socket.emit('nickname_null', '닉네임을 입력해주세요');
@@ -53,7 +54,7 @@ io.on('connection', (socket) => {
     done();
     io.sockets.emit('room_list', roomListFn());
   });
-
+  /* CREATE CHAT ROOM */
   socket.on('create_room', (roomName, done) => {
     if (!roomName) {
       socket.emit('roomName_null', '채팅방명을 입력해주세요');
@@ -73,8 +74,20 @@ io.on('connection', (socket) => {
     done();
     io.sockets.emit('room_list', roomListFn());
   });
-
+  /* DISCONNECT CHAT ROOM */
   socket.on('disconnect', () => {
     io.sockets.emit('room_list', roomListFn());
+  });
+
+  /* ENTER ROOM */
+  socket.on('enter_room', (roomName, done) => {
+    socket.join(roomName);
+    done();
+  });
+
+  /* MESSAGE */
+  socket.on('send_message', (message, roomName, done) => {
+    socket.to(roomName).emit('receive_message', socket.nickname, message);
+    done();
   });
 });

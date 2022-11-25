@@ -89,8 +89,10 @@ const OwlRooms = () => {
       </CreateRoom>
       <RoomList>
         {roomList.length === 0 && <NoRoom>Create a chat room</NoRoom>}
-        {roomList.map((item) => (
-          <OwlRoom>{item}</OwlRoom>
+        {roomList.map((item, index) => (
+          <OwlRoom roomName={item} key={item}>
+            {item}
+          </OwlRoom>
         ))}
       </RoomList>
     </RoomsBlock>
