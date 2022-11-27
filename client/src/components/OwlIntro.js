@@ -4,13 +4,13 @@ import styled from 'styled-components';
 const OwlIntro = () => {
   return (
     <IntroBlock>
-      <h1>Talk to Stranger</h1>
-      <p>Hope you enjoy chatting with random strangers!</p>
+      <h1>OWL</h1>
+      <p>임의의 낯선 사람과 채팅을 즐기시기 바랍니다!</p>
       <p>
-        Please note that if you impersonate someone else, you may be subject to
-        separate legal sanctions.
+        타인을 사칭하는 경우 별도의 법적 제재를
+        <br /> 받을 수 있음을 알려드립니다.
       </p>
-      <p>Enter your nickname and enjoy chatting</p>
+      <p>닉네임을 입력하고 채팅을 즐기세요</p>
     </IntroBlock>
   );
 };
@@ -18,15 +18,17 @@ const OwlIntro = () => {
 export default OwlIntro;
 
 const IntroBlock = styled.div`
-  margin: 110px 20px 80px 20px;
+  margin: 90px 20px 30px 20px;
   padding: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   color: white;
+
   h1 {
-    font-family: 'BMJUA';
-    color: #e7fee6;
+    font-family: 'SCDream9';
+    font-size: 55px;
+    color: #608cfe;
     :hover {
       color: #fce7d8;
     }
@@ -34,8 +36,8 @@ const IntroBlock = styled.div`
   p {
     font-size: 18px;
     text-align: center;
-    font-family: 'Ansungtangmyun';
-    color: #fce7d8;
+    font-family: 'SCDream3';
+    color: #7b9dff;
     :hover {
       color: #e7fee6;
     }

@@ -12,7 +12,6 @@ const TemplateBlock = styled.div`
   height: 768px;
   width: 512px;
   position: relative;
-
   margin: 0 auto;
   margin-top: 96px;
   margin-bottom: 32px;
@@ -20,12 +19,13 @@ const TemplateBlock = styled.div`
     height: 768px;
     width: 512px;
     content: '';
-    background-image: url(${background});
-    background-size: cover;
+    /* background-image: url(${background});
+    background-size: cover; */
+    background: white;
     position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
-    opacity: 0.15;
+    /* opacity: 0.15; */
   }
 `;

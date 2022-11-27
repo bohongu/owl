@@ -34,11 +34,11 @@ const OwlJoin = () => {
       <label>
         <input
           type="text"
-          placeholder="Enter Nickname"
+          placeholder="닉네임"
           value={nickname}
           onChange={onNicknameChange}
         />
-        <button onClick={handleGoRooms}>START</button>
+        <button onClick={handleGoRooms}>시작</button>
       </label>
       <div>{error}</div>
     </JoinBlock>
@@ -63,11 +63,14 @@ const JoinBlock = styled.div`
     width: 330px;
     padding: 0 15px;
     border: none;
-    background: none;
-    border: 1px solid #fce7d8;
+    border-radius: 12px;
+    background: #b8c7ff;
+    border: 1px solid #b8c7ff;
     color: white;
     margin-bottom: 10px;
+    font-family: 'SCDream3';
     :focus {
+      outline: none;
       ::placeholder {
         color: #fce7d8;
       }
@@ -75,6 +78,7 @@ const JoinBlock = styled.div`
 
     ::placeholder {
       color: white;
+      font-family: 'SCDream3';
     }
   }
 
@@ -86,11 +90,13 @@ const JoinBlock = styled.div`
     border: none;
     background: none;
     color: white;
+    font-family: 'SCDream3';
     :hover {
       color: #fce7d8;
     }
   }
   div {
+    font-family: 'SCDream3';
     color: red;
   }
 `;

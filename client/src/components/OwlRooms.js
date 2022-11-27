@@ -88,7 +88,7 @@ const OwlRooms = () => {
         ) : null}
       </CreateRoom>
       <RoomList>
-        {roomList.length === 0 && <NoRoom>Create a chat room</NoRoom>}
+        {roomList.length === 0 && <NoRoom>채팅방을 만드세요</NoRoom>}
         {roomList.map((item) => (
           <OwlRoom roomName={item} key={item}>
             {item}
@@ -121,7 +121,7 @@ const Create = styled.button`
   background: none;
   border: none;
   font-size: 25px;
-  color: white;
+  color: #b8c7ff;
   :hover {
     color: #e7fee6;
   }
@@ -189,4 +189,5 @@ const NoRoom = styled.div`
   text-align: center;
   color: red;
   font-size: 22px;
+  font-family: 'SCDream3';
 `;

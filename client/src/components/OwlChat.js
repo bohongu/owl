@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { chatActions } from '../store/chat';
+import { BsFillPersonFill } from 'react-icons/bs';
+import { BsFillArrowUpSquareFill } from 'react-icons/bs';
 
 const OwlChat = () => {
   const socket = useSelector((state) => state.socket.socket);
   const roomName = useSelector((state) => state.admin.roomTitle);
   const chats = useSelector((state) => state.chat.chats);
-  const [notice, setNotice] = useState('');
   const inputRef = useRef();
   const [message, setMessage] = useState('');
   const dispatch = useDispatch();
@@ -32,35 +33,54 @@ const OwlChat = () => {
   }, [dispatch, socket]);
 
   useEffect(() => {
-    socket.on('welcome_room', (notice) => setNotice(notice));
-  }, [socket]);
+    socket.on('welcome_room', (notice) =>
+      dispatch(chatActions.setChats({ notice, sep: '3' })),
+    );
+  }, [dispatch, socket]);
 
   useEffect(() => {
-    socket.on('leave_room', (notice) => setNotice(notice));
-  }, [socket]);
+    socket.on('leave_room', (notice) =>
+      dispatch(chatActions.setChats({ notice, sep: '3' })),
+    );
+  }, [dispatch, socket]);
 
   return (
     <>
-      <RoomName>{roomName}</RoomName>
+      <RoomName>
+        <div>{roomName}</div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <BsFillPersonFill style={{ marginRight: '5px', fontSize: '22px' }} />2
+        </div>
+      </RoomName>
       <ChatBlock>
-        <Notice>{notice}</Notice>
         {chats.map((chat, idx) => (
           <Message sep={chat.sep} key={idx}>
             <NicknameBlock> {chat.nickname}</NicknameBlock>
-            <Chat sep={chat.sep}>{chat.message}</Chat>
+            <Chat sep={chat.sep}>
+              {chat.message} {chat.notice}
+            </Chat>
           </Message>
         ))}
       </ChatBlock>
       <ChatInputBlock>
         <label>
           <input
-            placeholder="Message..."
+            placeholder="Message"
             type="text"
             onChange={messageChangeHandler}
             value={message}
             ref={inputRef}
           />
-          <button onClick={sendMessageHandler}>SEND</button>
+          <button onClick={sendMessageHandler}>
+            <BsFillArrowUpSquareFill
+              style={{ fontSize: '22px', color: '#608cfe' }}
+            />
+          </button>
         </label>
       </ChatInputBlock>
     </>
@@ -72,18 +92,24 @@ export default OwlChat;
 const RoomName = styled.div`
   margin: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  color: white;
-  font-size: 30px;
+  background: #608cfe;
+  border-radius: 12px;
+  padding: 5px 14px;
+  div {
+    color: white;
+    font-family: 'SCDream6';
+    font-size: 18px;
+  }
 `;
 
 const ChatBlock = styled.div`
   margin: 0 10px;
-  padding: 2px;
   height: 580px;
-  border: 1px solid white;
-  background: #3c3c3d;
+  border: 3px solid #b8c7ff;
+  border-radius: 20px;
+  background: white;
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -92,43 +118,37 @@ const ChatBlock = styled.div`
   }
 `;
 
-const Notice = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 0;
-  color: #f7f1e3;
-`;
-
 const ChatInputBlock = styled.div`
   margin: 10px;
   label {
     position: relative;
   }
   input {
+    border-radius: 15px;
     height: 45px;
     padding: 0 15px;
-    border: 1px solid white;
+    border: 3px solid #b8c7ff;
     background: none;
-    color: white;
+    color: #b8c7ff;
     width: 100%;
     :focus {
+      outline: none;
       ::placeholder {
-        color: #fce7d8;
+        color: #608cfe;
       }
     }
     ::placeholder {
-      color: white;
+      color: #608cfe;
     }
   }
   button {
     height: 45px;
     position: absolute;
-    top: 5;
+    top: -8px;
     right: 5px;
     border: none;
     background: none;
-    color: white;
+    color: #b8c7ff;
     :hover {
       color: #fce7d8;
     }
@@ -136,32 +156,62 @@ const ChatInputBlock = styled.div`
 `;
 
 const Message = styled.div`
-  padding: 8px 10px;
+  padding: 6px 10px;
+  margin-bottom: 8px;
   height: 58px;
   ${(prosp) =>
     prosp.sep === '1' &&
     css`
+      margin-bottom: 0;
       text-align: end;
     `}
+  ${(props) =>
+    props.sep === '3' &&
+    css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+      width: 90%;
+      margin: 0 auto;
+      margin-top: 20px;
+      border-radius: 18px;
+      background: #bfd6fb;
+      height: 30px;
+    `};
 `;
 
 const NicknameBlock = styled.div`
   font-size: 12px;
-  margin-bottom: 9px;
-  color: white;
+  margin-bottom: 12px;
+  color: black;
+  font-family: 'NanumSquareNeo-Variable';
+  font-weight: bold;
 `;
 
 const Chat = styled.span`
   border-radius: 10px;
   border-top-left-radius: 0px;
-  padding: 6px 10px;
-  background: #f7f1e3;
-  font-size: 16px;
+  padding: 8px 12px;
+  background: none;
+  border: 3px solid #e6e7f8;
+  font-size: 18px;
+  font-family: 'SCDream4';
+  color: #608cfe;
   ${(prosp) =>
     prosp.sep === '1' &&
     css`
       border-radius: 10px;
       border-top-right-radius: 0px;
-      background: #dfe6e9;
+      background: #b7c7fd;
+      border: none;
     `}
+  ${(props) =>
+    props.sep === '3' &&
+    css`
+      border: none;
+      color: white;
+      font-family: 'SCDream6';
+      font-size: 14px;
+    `};
 `;
