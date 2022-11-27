@@ -57,7 +57,7 @@ const OwlRooms = () => {
         dispatch(adminActions.setRoomList(rooms[i]));
       }
     });
-  }, [dispatch]);
+  }, [dispatch, socket]);
 
   return (
     <RoomsBlock>
