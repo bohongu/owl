@@ -10,6 +10,7 @@ const OwlChat = () => {
   const roomName = useSelector((state) => state.admin.roomTitle);
   const chats = useSelector((state) => state.chat.chats);
   const inputRef = useRef();
+  const chatRef = useRef();
   const [message, setMessage] = useState('');
   const dispatch = useDispatch();
 
@@ -44,6 +45,10 @@ const OwlChat = () => {
     );
   }, [dispatch, socket]);
 
+  useEffect(() => {
+    chatRef.current.scrollTop = chatRef.current.scrollHeight;
+  });
+
   return (
     <>
       <RoomName>
@@ -57,7 +62,7 @@ const OwlChat = () => {
           <BsFillPersonFill style={{ marginRight: '5px', fontSize: '22px' }} />2
         </div>
       </RoomName>
-      <ChatBlock>
+      <ChatBlock ref={chatRef}>
         {chats.map((chat, idx) => (
           <Message sep={chat.sep} key={idx}>
             <NicknameBlock> {chat.nickname}</NicknameBlock>
@@ -157,7 +162,7 @@ const ChatInputBlock = styled.div`
 
 const Message = styled.div`
   padding: 6px 10px;
-  margin-bottom: 8px;
+  margin-bottom: 15px;
   height: 58px;
   ${(prosp) =>
     prosp.sep === '1' &&
@@ -174,7 +179,7 @@ const Message = styled.div`
       padding: 10px 0;
       width: 90%;
       margin: 0 auto;
-      margin-top: 20px;
+      margin-top: 10px;
       border-radius: 18px;
       background: #bfd6fb;
       height: 30px;
@@ -196,7 +201,7 @@ const Chat = styled.span`
   background: none;
   border: 3px solid #e6e7f8;
   font-size: 18px;
-  font-family: 'SCDream4';
+  font-family: 'Nanum';
   color: #608cfe;
   ${(prosp) =>
     prosp.sep === '1' &&
