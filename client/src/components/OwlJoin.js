@@ -21,6 +21,12 @@ const OwlJoin = () => {
     });
   };
 
+  const handleOnKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleGoRooms();
+    }
+  };
+
   socket.on('nickname_null', (data) => {
     setError(data);
   });
@@ -37,6 +43,7 @@ const OwlJoin = () => {
           placeholder="닉네임"
           value={nickname}
           onChange={onNicknameChange}
+          onKeyPress={handleOnKeyPress}
         />
         <button onClick={handleGoRooms}>시작</button>
       </label>

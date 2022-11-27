@@ -26,6 +26,12 @@ const OwlChat = () => {
     inputRef.current.focus();
   };
 
+  const handleOnKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      sendMessageHandler();
+    }
+  };
+
   useEffect(() => {
     socket.on('receive_message', (message, nickname) => {
       dispatch(chatActions.setChats({ message, nickname, sep: '2' }));
@@ -80,6 +86,7 @@ const OwlChat = () => {
             onChange={messageChangeHandler}
             value={message}
             ref={inputRef}
+            onKeyPress={handleOnKeyPress}
           />
           <button onClick={sendMessageHandler}>
             <BsFillArrowUpSquareFill
