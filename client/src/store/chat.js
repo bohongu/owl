@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { chat: [] };
+const initialState = { chats: [] };
 
 const chatSlice = createSlice({
   name: 'chat',
   initialState,
   reducers: {
-    setChat(state, action) {
-      state.chat.push(action.payload);
+    setChats(state, action) {
+      state.chats.push(action.payload);
     },
   },
 });

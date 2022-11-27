@@ -1,20 +1,17 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { io } from 'socket.io-client';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { adminActions } from '../store/admin';
 import { startActions } from '../store/start';
 
-const socket = io.connect('http://localhost:3001');
-
 const OwlRoom = ({ children, roomName }) => {
   const dispatch = useDispatch();
+  const socket = useSelector((state) => state.socket.socket);
 
   const enterRoom = () => {
     socket.emit('enter_room', roomName, () => {
-      dispatch(startActions.goChat());
       dispatch(adminActions.setRoomTitle(roomName));
-      console.log(roomName);
+      dispatch(startActions.goChat());
     });
   };
 

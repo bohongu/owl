@@ -35,25 +35,23 @@ const roomListFn = () => {
 
 io.on('connection', (socket) => {
   /* CREATE NICKNAME */
-  socket.on('nickname', (data, done) => {
-    if (!data.nickname) {
+  socket.on('nickname', (nickname, done) => {
+    if (!nickname) {
       socket.emit('nickname_null', '닉네임을 입력해주세요');
       return;
     }
 
     for (let i = 0; i < users.length; i++) {
-      if (users[i].nickname === data.nickname) {
+      if (users[i] === nickname) {
         socket.emit('nickname_same', '동일한 닉네임이 존재합니다.');
         return;
       }
     }
-
-    users.push({ nickname: data.nickname });
-    socket.nickname = data.nickname;
-    console.log(users);
+    users.push(nickname);
     done();
     io.sockets.emit('room_list', roomListFn());
   });
+
   /* CREATE CHAT ROOM */
   socket.on('create_room', (roomName, done) => {
     if (!roomName) {
@@ -63,18 +61,17 @@ io.on('connection', (socket) => {
 
     for (let i = 0; i < roomCheck.length; i++) {
       if (roomCheck[i] === roomName) {
-        console.log(roomCheck[i]);
         socket.emit('roomName_same', '동일한 채팅방명이 존재합니다.');
         return;
       }
     }
 
     roomCheck.push(roomName);
-    console.log(`Create Room : ${roomName}`);
     socket.join(roomName);
     done();
     io.sockets.emit('room_list', roomListFn());
   });
+
   /* DISCONNECT CHAT ROOM */
   socket.on('disconnect', () => {
     io.sockets.emit('room_list', roomListFn());
@@ -82,15 +79,17 @@ io.on('connection', (socket) => {
 
   /* ENTER ROOM */
   socket.on('enter_room', (roomName, done) => {
-    console.log(`Enter Room : ${roomName}`);
-    socket.join(roomName);
+    for (let i = 0; i < roomCheck.length; i++) {
+      if (roomCheck[i] === roomName) {
+        socket.join(roomName);
+      }
+    }
+
     done();
   });
 
   /* MESSAGE */
   socket.on('send_message', (message, roomName, done) => {
-    console.log(`Message : ${message}`);
-    console.log(`Room name: ${roomName}`);
     socket.to(roomName).emit('receive_message', message);
     done();
   });

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { io } from 'socket.io-client';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { startActions } from '../store/start';
 
-const socket = io.connect('http://localhost:3001');
-
 const OwlJoin = () => {
+  const socket = useSelector((state) => state.socket.socket);
   const [nickname, setNickname] = useState('');
   const [error, setError] = useState('');
   const dispatch = useDispatch();
@@ -16,7 +14,8 @@ const OwlJoin = () => {
   };
 
   const handleGoRooms = () => {
-    socket.emit('nickname', { nickname }, () => {
+    socket.emit('nickname', nickname, () => {
+      localStorage.setItem('nickname', nickname);
       setNickname('');
       dispatch(startActions.goRoom());
     });

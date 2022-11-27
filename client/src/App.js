@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import OwlChat from './components/OwlChat';
 import OwlHeader from './components/OwlHeader';
 import OwlIntro from './components/OwlIntro';
 import OwlJoin from './components/OwlJoin';
 import OwlTemplate from './components/OwlTemplate';
-import io from 'socket.io-client';
 import { createGlobalStyle } from 'styled-components';
 import { useSelector } from 'react-redux';
 import GlobalFonts from './fonts/fonts';
 import OwlRooms from './components/OwlRooms';
-
-const socket = io.connect('http://localhost:3001');
 
 const App = () => {
   const { join, room, chat } = useSelector((state) => state.start);

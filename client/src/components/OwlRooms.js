@@ -5,14 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { modalActions } from '../store/modal';
 import { IoCreateOutline } from 'react-icons/io5';
 import { ImArrowLeft } from 'react-icons/im';
-import { io } from 'socket.io-client';
 import { startActions } from '../store/start';
 import { adminActions } from '../store/admin';
 import OwlRoom from './OwlRoom';
 
-const socket = io.connect('http://localhost:3001');
-
 const OwlRooms = () => {
+  const socket = useSelector((state) => state.socket.socket);
   const [roomName, setRoomName] = useState('');
   const [error, setError] = useState('');
   const showModal = useSelector((state) => state.modal.showModal);
@@ -38,7 +36,6 @@ const OwlRooms = () => {
       setRoomName('');
       dispatch(startActions.goChat());
       dispatch(adminActions.setRoomTitle(roomName));
-      console.log(roomName);
     });
   };
 
@@ -92,7 +89,7 @@ const OwlRooms = () => {
       </CreateRoom>
       <RoomList>
         {roomList.length === 0 && <NoRoom>Create a chat room</NoRoom>}
-        {roomList.map((item, index) => (
+        {roomList.map((item) => (
           <OwlRoom roomName={item} key={item}>
             {item}
           </OwlRoom>

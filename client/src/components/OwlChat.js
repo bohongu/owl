@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { chatActions } from '../store/chat';
 
-const socket = io.connect('http://localhost:3001');
-
 const OwlChat = () => {
-  const roomTitle = useSelector((state) => state.admin.roomTitle);
-  const chat = useSelector((state) => state.chat.chat);
+  const socket = useSelector((state) => state.socket.socket);
+  const roomName = useSelector((state) => state.admin.roomTitle);
+  const chats = useSelector((state) => state.chat.chats);
+  // const [user, setUser] = useState(localStorage.getItem('nickname'));
   const [message, setMessage] = useState('');
   const dispatch = useDispatch();
 
@@ -17,21 +16,27 @@ const OwlChat = () => {
   };
 
   const sendMessageHandler = () => {
-    socket.emit('send_message', message, roomTitle, () => {
-      dispatch(chatActions.setChat(message));
+    socket.emit('send_message', message, roomName, () => {
+      dispatch(chatActions.setChats(message));
     });
+    setMessage('');
   };
 
   useEffect(() => {
     socket.on('receive_message', (message) => {
-      dispatch(chatActions.setChat(message));
+      dispatch(chatActions.setChats(message));
+      setMessage('');
     });
-  }, [dispatch]);
+  }, [dispatch, socket]);
 
   return (
     <>
-      <RoomName>{roomTitle}</RoomName>
-      <ChatBlock>{chat}</ChatBlock>
+      <RoomName>{roomName}</RoomName>
+      <ChatBlock>
+        {chats.map((chat, idx) => (
+          <div key={idx}>{chat}</div>
+        ))}
+      </ChatBlock>
       <ChatInputBlock>
         <label>
           <input
