@@ -27,11 +27,17 @@ const IntroBlock = styled.div`
   h1 {
     font-family: 'BMJUA';
     color: #e7fee6;
+    :hover {
+      color: #fce7d8;
+    }
   }
   p {
     font-size: 18px;
     text-align: center;
     font-family: 'Ansungtangmyun';
     color: #fce7d8;
+    :hover {
+      color: #e7fee6;
+    }
   }
 `;

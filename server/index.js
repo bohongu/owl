@@ -48,6 +48,7 @@ io.on('connection', (socket) => {
       }
     }
     users.push(nickname);
+    socket.nickname = nickname;
     done();
     io.sockets.emit('room_list', roomListFn());
   });
@@ -79,18 +80,28 @@ io.on('connection', (socket) => {
 
   /* ENTER ROOM */
   socket.on('enter_room', (roomName, done) => {
-    for (let i = 0; i < roomCheck.length; i++) {
-      if (roomCheck[i] === roomName) {
-        socket.join(roomName);
-      }
-    }
-
+    socket.join(roomName);
     done();
+    socket
+      .to(roomName)
+      .emit('welcome_room', `${socket.nickname}님이 입장하셨습니다.`);
+  });
+
+  socket.on('disconnecting', () => {
+    socket.rooms.forEach((room) =>
+      socket
+        .to(room)
+        .emit('leave_room', `${socket.nickname}님이 퇴장하셨습니다.`),
+    );
   });
 
   /* MESSAGE */
   socket.on('send_message', (message, roomName, done) => {
-    socket.to(roomName).emit('receive_message', message);
+    if (!message) {
+      socket.emit('send_message_null', '메세지를 입력해주세요');
+      return;
+    }
+    socket.to(roomName).emit('receive_message', message, socket.nickname);
     done();
   });
 });

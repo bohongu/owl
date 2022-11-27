@@ -26,6 +26,6 @@ const TemplateBlock = styled.div`
     top: 0;
     left: 0;
     z-index: -1;
-    opacity: 0.2;
+    opacity: 0.15;
   }
 `;
