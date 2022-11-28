@@ -54,6 +54,7 @@ io.on('connection', (socket) => {
     users.push(nickname);
     socket.nickname = nickname;
     done();
+    console.log(users);
     io.sockets.emit('room_list', roomListFn());
   });
 
@@ -92,6 +93,7 @@ io.on('connection', (socket) => {
       .to(roomName)
       .emit('welcome_room', `${socket.nickname}님이 입장하셨습니다.`);
   });
+
   /* DISCONNECTING */
   socket.on('disconnecting', () => {
     socket.rooms.forEach((room) => {

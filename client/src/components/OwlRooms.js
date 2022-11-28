@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import Modal from './ui/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { modalActions } from '../store/modal';
-import { IoCreateOutline } from 'react-icons/io5';
 import { ImArrowLeft } from 'react-icons/im';
 import { startActions } from '../store/start';
 import { adminActions } from '../store/admin';
 import OwlRoom from './OwlRoom';
+import { MdOutlineSensorDoor } from 'react-icons/md';
 
 const OwlRooms = () => {
   const socket = useSelector((state) => state.socket.socket);
@@ -62,7 +62,10 @@ const OwlRooms = () => {
   return (
     <RoomsBlock>
       <CreateRoom>
-        <Create onClick={handleModalShow}>방만들기</Create>
+        <Create onClick={handleModalShow}>
+          CREATE ROOM&nbsp;
+          <MdOutlineSensorDoor />
+        </Create>
         {showModal ? (
           <Modal>
             <ModalHeader>
@@ -81,12 +84,31 @@ const OwlRooms = () => {
               />
               <button onClick={handleCreateRoom}>CREATE</button>
             </Label>
-            <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>
+            <div
+              style={{
+                color: 'red',
+                marginTop: '10px',
+                fontFamily: 'SCDream3',
+                fontSize: '12px',
+              }}
+            >
+              {error}
+            </div>
           </Modal>
         ) : null}
       </CreateRoom>
       <RoomList>
-        {roomList.length === 0 && <NoRoom>채팅방을 만드세요</NoRoom>}
+        {roomList.length === 0 && (
+          <>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <NoRoom>채팅방을 만들어주세요</NoRoom>
+            <div></div>
+            <div></div>
+          </>
+        )}
         {roomList.map((item) => (
           <OwlRoom roomName={item} key={item}>
             {item}
@@ -110,18 +132,21 @@ const CreateRoom = styled.div`
   display: flex;
   justify-content: flex-end;
   height: 50px;
+  margin-bottom: 40px;
 `;
 
 const Create = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
   border: none;
-  font-size: 25px;
-  color: #b8c7ff;
-  border: 1px solid black;
+  font-size: 28px;
+  color: white;
+  background: #b8c7ff;
   width: 100%;
+  border-radius: 15px;
+  font-family: BMJUA;
+  font-weight: 600;
   :hover {
     color: #e7fee6;
   }
@@ -132,7 +157,13 @@ const RoomList = styled.div`
   width: 412px;
   display: grid;
   grid-template-rows: repeat(8, 1fr);
-  gap: 5px;
+  gap: 7px;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ModalHeader = styled.div`
@@ -146,14 +177,19 @@ const ExitArrow = styled.div`
   display: flex;
   align-items: center;
   width: 50px;
+  color: #b8c7ff;
   :hover {
-    color: #ff0a00;
+    color: #4c6efe;
   }
 `;
 
 const HeaderTitle = styled.div`
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #4c6efe;
   font-weight: bold;
+  font-family: BMJUA;
+  display: flex;
+  align-items: center;
+  color: #4c6efe;
 `;
 
 const Label = styled.label`
@@ -162,11 +198,15 @@ const Label = styled.label`
     height: 30px;
     width: 300px;
     padding: 0 15px;
-    border: 1px solid black;
+    border: 2px solid #b8c7ff;
     background: none;
+    ::placeholder {
+      color: #b8c7ff;
+    }
     :focus {
+      outline: none;
       ::placeholder {
-        color: black;
+        color: #b8c7ff;
         font-weight: bold;
       }
     }
@@ -178,8 +218,9 @@ const Label = styled.label`
     right: 5px;
     border: none;
     background: none;
+    color: #4c6efe;
     :hover {
-      color: black;
+      color: #4c6efe;
       font-weight: bold;
     }
   }
@@ -189,5 +230,5 @@ const NoRoom = styled.div`
   text-align: center;
   color: red;
   font-size: 22px;
-  font-family: 'SCDream3';
+  font-family: GangwonEdu_OTFBoldA;
 `;

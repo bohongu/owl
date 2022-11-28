@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { startActions } from '../store/start';
+import { IoIosMail } from 'react-icons/io';
 
 const OwlJoin = () => {
   const socket = useSelector((state) => state.socket.socket);
@@ -45,7 +46,9 @@ const OwlJoin = () => {
           onChange={onNicknameChange}
           onKeyPress={handleOnKeyPress}
         />
-        <button onClick={handleGoRooms}>시작</button>
+        <button onClick={handleGoRooms}>
+          <IoIosMail style={{ fontSize: '30px' }} />
+        </button>
       </label>
       <div>{error}</div>
     </JoinBlock>
@@ -79,7 +82,7 @@ const JoinBlock = styled.div`
     :focus {
       outline: none;
       ::placeholder {
-        color: #fce7d8;
+        color: #608cfe;
       }
     }
 
@@ -90,6 +93,8 @@ const JoinBlock = styled.div`
   }
 
   button {
+    display: flex;
+    align-items: center;
     height: 45px;
     position: absolute;
     top: 0;
@@ -99,11 +104,12 @@ const JoinBlock = styled.div`
     color: white;
     font-family: 'SCDream3';
     :hover {
-      color: #fce7d8;
+      color: #608cfe;
     }
   }
   div {
-    font-family: 'SCDream3';
     color: red;
+    font-family: SCDream3;
+    font-size: 12px;
   }
 `;

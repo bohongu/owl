@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { chatActions } from '../store/chat';
 import { BsFillPersonFill } from 'react-icons/bs';
-import { BsFillArrowUpSquareFill } from 'react-icons/bs';
+import { BsArrowUpCircleFill } from 'react-icons/bs';
 
 const OwlChat = () => {
   const socket = useSelector((state) => state.socket.socket);
@@ -95,9 +95,7 @@ const OwlChat = () => {
             onKeyPress={handleOnKeyPress}
           />
           <button onClick={sendMessageHandler}>
-            <BsFillArrowUpSquareFill
-              style={{ fontSize: '22px', color: '#608cfe' }}
-            />
+            <BsArrowUpCircleFill />
           </button>
         </label>
       </ChatInputBlock>
@@ -147,8 +145,10 @@ const ChatInputBlock = styled.div`
     padding: 0 15px;
     border: 3px solid #b8c7ff;
     background: none;
-    color: #b8c7ff;
+    color: #608cfe;
     width: 100%;
+    font-size: 16px;
+    font-weight: 600;
     :focus {
       outline: none;
       ::placeholder {
@@ -156,7 +156,7 @@ const ChatInputBlock = styled.div`
       }
     }
     ::placeholder {
-      color: #608cfe;
+      color: #b8c7ff;
     }
   }
   button {
@@ -166,9 +166,10 @@ const ChatInputBlock = styled.div`
     right: 5px;
     border: none;
     background: none;
-    color: #b8c7ff;
+    color: #608cfe;
+    font-size: 28px;
     :hover {
-      color: #fce7d8;
+      color: #b8c7ff;
     }
   }
 `;
@@ -213,8 +214,9 @@ const Chat = styled.span`
   padding: 8px 12px;
   background: none;
   border: 3px solid #e6e7f8;
-  font-size: 18px;
+  font-size: 15px;
   font-family: 'Nanum';
+  font-weight: 600;
   color: #608cfe;
   ${(prosp) =>
     prosp.sep === '1' &&

@@ -21,15 +21,25 @@ const OwlRoom = ({ children, roomName }) => {
 export default OwlRoom;
 
 const RoomCard = styled.div`
-  border-radius: 15px;
+  position: relative;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-  background: #608cfe;
-  font-family: 'SCDream6';
-  color: white;
-  cursor: pointer;
+  border-radius: 15px;
+  font-family: SCDream6;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+  background-color: aliceblue;
+  color: #608cfe;
   :hover {
+    letter-spacing: 2px;
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  :active {
+    transform: scale(1.2);
   }
 `;

@@ -17,4 +17,5 @@ const TemplateBlock = styled.div`
   margin-top: 96px;
   margin-bottom: 32px;
   background: white;
+  border-radius: 20px;
 `;
