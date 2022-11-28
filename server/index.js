@@ -33,6 +33,10 @@ const roomListFn = () => {
   return roomList;
 };
 
+const userCount = (roomName) => {
+  return io.sockets.adapter.rooms.get(roomName)?.size;
+};
+
 io.on('connection', (socket) => {
   /* CREATE NICKNAME */
   socket.on('nickname', (nickname, done) => {
@@ -70,6 +74,7 @@ io.on('connection', (socket) => {
     roomCheck.push(roomName);
     socket.join(roomName);
     done();
+    io.to(roomName).emit('user_count', userCount(roomName));
     io.sockets.emit('room_list', roomListFn());
   });
 
@@ -82,23 +87,24 @@ io.on('connection', (socket) => {
   socket.on('enter_room', (roomName, done) => {
     socket.join(roomName);
     done();
+    io.to(roomName).emit('user_count', userCount(roomName));
     socket
       .to(roomName)
       .emit('welcome_room', `${socket.nickname}님이 입장하셨습니다.`);
   });
 
   socket.on('disconnecting', () => {
-    socket.rooms.forEach((room) =>
+    socket.rooms.forEach((room) => {
       socket
         .to(room)
         .emit('leave_room', `${socket.nickname}님이 퇴장하셨습니다.`),
-    );
+        io.to(room).emit('user_count', userCount(room) - 1);
+    });
   });
 
   /* MESSAGE */
   socket.on('send_message', (message, roomName, done) => {
     if (!message) {
-      socket.emit('send_message_null', '메세지를 입력해주세요');
       return;
     }
     socket.to(roomName).emit('receive_message', message, socket.nickname);

@@ -12,6 +12,7 @@ const OwlChat = () => {
   const inputRef = useRef();
   const chatRef = useRef();
   const [message, setMessage] = useState('');
+  const [count, setCount] = useState(0);
   const dispatch = useDispatch();
 
   const messageChangeHandler = (event) => {
@@ -55,6 +56,10 @@ const OwlChat = () => {
     chatRef.current.scrollTop = chatRef.current.scrollHeight;
   });
 
+  useEffect(() => {
+    socket.on('user_count', (count) => setCount(count));
+  }, [socket]);
+
   return (
     <>
       <RoomName>
@@ -65,7 +70,8 @@ const OwlChat = () => {
             alignItems: 'center',
           }}
         >
-          <BsFillPersonFill style={{ marginRight: '5px', fontSize: '22px' }} />2
+          <BsFillPersonFill style={{ marginRight: '5px', fontSize: '22px' }} />
+          {count}
         </div>
       </RoomName>
       <ChatBlock ref={chatRef}>
@@ -184,7 +190,7 @@ const Message = styled.div`
       justify-content: center;
       align-items: center;
       padding: 10px 0;
-      width: 90%;
+      width: 95%;
       margin: 0 auto;
       margin-top: 10px;
       border-radius: 18px;
