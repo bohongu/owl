@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import background from '../assets/background.jpg';
 
 const OwlTemplate = ({ children }) => {
   return <TemplateBlock>{children}</TemplateBlock>;
@@ -9,23 +8,13 @@ const OwlTemplate = ({ children }) => {
 export default OwlTemplate;
 
 const TemplateBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
   height: 768px;
   width: 512px;
-  position: relative;
   margin: 0 auto;
   margin-top: 96px;
   margin-bottom: 32px;
-  ::after {
-    height: 768px;
-    width: 512px;
-    content: '';
-    /* background-image: url(${background});
-    background-size: cover; */
-    background: white;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    /* opacity: 0.15; */
-  }
+  background: white;
 `;

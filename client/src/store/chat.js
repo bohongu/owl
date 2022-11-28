@@ -9,6 +9,9 @@ const chatSlice = createSlice({
     setChats(state, action) {
       state.chats.push(action.payload);
     },
+    setChatsClear(state) {
+      state.chats = [];
+    },
   },
 });
 

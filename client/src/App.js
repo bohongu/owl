@@ -17,7 +17,6 @@ const App = () => {
       <GlobalStyle />
       <GlobalFonts />
       <OwlTemplate>
-        <OwlHeader />
         {join && (
           <>
             <OwlIntro />

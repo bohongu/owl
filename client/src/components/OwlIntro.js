@@ -18,7 +18,7 @@ const OwlIntro = () => {
 export default OwlIntro;
 
 const IntroBlock = styled.div`
-  margin: 90px 20px 30px 20px;
+  margin: 110px 20px 30px 20px;
   padding: 0 20px;
   display: flex;
   flex-direction: column;

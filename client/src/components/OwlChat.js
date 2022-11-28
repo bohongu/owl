@@ -124,7 +124,7 @@ const RoomName = styled.div`
 
 const ChatBlock = styled.div`
   margin: 0 10px;
-  height: 580px;
+  height: 638px;
   border: 3px solid #b8c7ff;
   border-radius: 20px;
   background: white;

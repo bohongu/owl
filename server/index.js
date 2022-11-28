@@ -92,7 +92,7 @@ io.on('connection', (socket) => {
       .to(roomName)
       .emit('welcome_room', `${socket.nickname}님이 입장하셨습니다.`);
   });
-
+  /* DISCONNECTING */
   socket.on('disconnecting', () => {
     socket.rooms.forEach((room) => {
       socket

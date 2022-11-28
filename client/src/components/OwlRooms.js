@@ -62,9 +62,7 @@ const OwlRooms = () => {
   return (
     <RoomsBlock>
       <CreateRoom>
-        <Create onClick={handleModalShow}>
-          <IoCreateOutline />
-        </Create>
+        <Create onClick={handleModalShow}>방만들기</Create>
         {showModal ? (
           <Modal>
             <ModalHeader>
@@ -104,7 +102,7 @@ export default OwlRooms;
 const RoomsBlock = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 55px 50px;
+  margin: 20px 50px;
   height: 600px;
 `;
 
@@ -122,6 +120,8 @@ const Create = styled.button`
   border: none;
   font-size: 25px;
   color: #b8c7ff;
+  border: 1px solid black;
+  width: 100%;
   :hover {
     color: #e7fee6;
   }
