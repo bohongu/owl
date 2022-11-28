@@ -82,6 +82,13 @@ io.on('connection', (socket) => {
   /* DISCONNECT CHAT ROOM */
   socket.on('disconnect', () => {
     io.sockets.emit('room_list', roomListFn());
+    for (let i = 0; i < users.length; i++) {
+      if (users[i] === socket.nickname) {
+        users.splice(i, 1);
+        i--;
+      }
+    }
+    console.log(users);
   });
 
   /* ENTER ROOM */
