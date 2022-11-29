@@ -7,6 +7,7 @@ import { createGlobalStyle } from 'styled-components';
 import { useSelector } from 'react-redux';
 import GlobalFonts from './fonts/fonts';
 import OwlRooms from './components/OwlRooms';
+import { Helmet } from 'react-helmet';
 
 const App = () => {
   const { join, room, chat } = useSelector((state) => state.start);
@@ -15,6 +16,9 @@ const App = () => {
     <>
       <GlobalStyle />
       <GlobalFonts />
+      <Helmet>
+        <title>Owl</title>
+      </Helmet>
       <OwlTemplate>
         {join && (
           <>
