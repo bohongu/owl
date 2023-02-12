@@ -12,7 +12,7 @@
 ## 기능
 
 <p align=center>
-<img width='90%' src='https://user-images.githubusercontent.com/91203029/218038612-682626b5-4d09-45a3-aef7-dc639e4e6e7d.gif' />
+<img width='90%' src='https://user-images.githubusercontent.com/91203029/218298791-8116ca03-7c00-46d5-9c71-4d0ed6433cb1.gif' />
 </p>
 <br />
 
@@ -40,7 +40,7 @@
 ## 기술스택
 
 <p align=center >
-<img width='90%' src='https://user-images.githubusercontent.com/91203029/218038788-c5635150-a9fd-4eae-b29b-f2fa5424aa18.png' />
+<img width='90%' src='https://user-images.githubusercontent.com/91203029/218298762-3d710977-0e1e-4b9d-8ffe-44854f49808a.gif' />
 </p>
 
 <br />
