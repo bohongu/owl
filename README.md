@@ -1,5 +1,3 @@
-# Owl 리드미
-
 <p align=center>
 <img src='https://user-images.githubusercontent.com/91203029/218038684-6df1900a-1c42-4148-b94d-867bbeda8ce1.png' />
 </p>
