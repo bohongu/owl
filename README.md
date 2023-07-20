@@ -3,7 +3,7 @@
 </p>
 
 > 올빼미나 부엉이는 영화 ‘**해리 포터 시리즈**’ 에는 우편물을 주고 받는데 주로 이용하여 마법사 세계에서 많은 도움을 주는 동물입니다.<br/>
-> 채팅(우편물)을 주고 받고 정보를 교환하는데 도움을 주고 싶은 애플리케이션이 되기를 바라며 ‘**OWL**’로 지었습니다.<br/><br/>**채팅하러 가기** <br/>[https://taupe-pony-4b0c0b.netlify.app](https://taupe-pony-4b0c0b.netlify.app/)
+> 채팅(우편물)을 주고 받고 정보를 교환하는데 도움을 주고 싶은 애플리케이션이 되기를 바라며 ‘**OWL**’로 지었습니다.<br/><br/>**채팅하러 가기** <br/>[https://taupe-pony-4b0c0b.netlify.app](https://taupe-pony-4b0c0b.netlify.app/) ( 현재는 비용문제로 인해 서버가 닫힌 상태입니다 )
 
 <br/>
 
